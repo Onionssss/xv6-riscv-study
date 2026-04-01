@@ -31,7 +31,10 @@ It captures my implementation of various OS components and my evolving understan
 - [ ] **Lab: Page tables**
 - [ ] **Lab: Traps**
 - [ ] **Lab: Copy-on-Write (COW)**
-
+- [ ] **Lab: Network driver**
+- [ ] **Lab: Lock**
+- [ ] **Lab: File system**
+- [ ] **Lab: mmap**
 ---
 
 ## 💻 Development Environment
