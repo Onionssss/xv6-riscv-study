@@ -21,7 +21,7 @@ It captures my implementation of various OS components and my evolving understan
 | `pingpong` | 6.S081 (Classic) | [x] | Pipe IPC, `fork()`, `read()`, `write()` |
 | `primes` | 6.S081 (Classic) | [ ] | Concurrent Pipes, Recursive `fork()` |
 | `sixfive` | 6.1810 (2025) | [ ] | File I/O, String Parsing |
-| `memdump` | 6.1810 (2025) | [ ] | Memory Layout, C Pointers Alignment |
+| `memdump` | 6.1810 (2025) | [x] | Memory Layout, C Pointers Alignment |
 | `find` | 6.S081 (Classic) | [ ] | Directory Traversal, `fstat()` |
 | `find -exec` | 6.1810 (2025) | [ ] | Process Control: `fork()`, `exec()`, `wait()` |
 | `xargs` | 6.S081 (Classic) | [ ] | Argument Parsing, `exec()` |
@@ -47,12 +47,21 @@ It captures my implementation of various OS components and my evolving understan
 ---
 
 ## 📖 Key Takeaways
-- **[2026-03-27] Environment Success:** Successfully interfaced VS Code with WSL2 and mapped the GDB debugger to QEMU's port 26000.
-- **[2026-03-27] User Program Flow:** Understood that adding a user program requires modifying the `UPROGS` section in the `Makefile` to link the object files into the `fs.img`.
-- **[2026-03-27] Exit Protocol:** Learned that every xv6 user program *must* call `exit()` to avoid executing undefined memory regions.
-- [2026-03-30] **Defensive Programming:** Realized that `argc` must be checked *before* accessing `argv[1]` to prevent Segmentation Faults. Order of execution matters in low-level C.
-- [2026-03-30] **System Call Evolution:** Observed that MIT 6.1810 (2025 Fall) uses `pause()` instead of the legacy `sleep()` system call, though the functional logic remains similar.
-- [2026-03-30] **Build Dependencies:** Learned that `mkfs` requires a physical `README` file in the root directory to build the `fs.img`. Solved the dependency by creating a symbolic link.
-- [2026-03-31] **IPC & Synchronization (pingpong):** Successfully implemented bidirectional communication using two pipes. 
-- [2026-03-31] **Blocking I/O:** Learned that `read()` on a pipe blocks until data is available, which is a natural synchronization mechanism between parent and child processes.
-- [2026-03-31] **File Descriptor Management:** Realized the importance of closing unused pipe ends to prevent resource leaks and potential deadlocks (though more critical in the upcoming `primes` lab).
+
+### 🛠️ Infrastructure & Environment
+* **Full-Stack Debugging:** Integrated **VS Code + WSL2 + QEMU**, mapping GDB to port 26000 for seamless kernel-level tracing.
+* **xv6 Build Chain:** Mastered the `Makefile` (UPROGS) linking process and resolved `mkfs` dependencies for `fs.img` through symbolic links.
+
+### 🧠 Systems Programming & Logic
+* **Memory Manipulation (The "Lens" Theory):** Leveraged pointer casting to interpret raw memory as various data widths (`uint64`, `int`, `short`, `char`).
+* **Double Indirection:** Implemented 2nd-level pointer resolution (pointer-to-pointer) to access dynamic strings in memory (`s` format).
+* **Pointer Arithmetic:** Navigated complex memory topologies by calculating offsets based on type size and null-terminators (`strlen(p) + 1`).
+* **Defensive & Robust Coding:**
+    * Strictly validate `argc` before `argv` access to prevent Segfaults.
+    * Enforce mandatory `exit()` calls to prevent execution of undefined memory.
+    * Utilize block scope `{}` within `switch` cases to manage local variable lifetimes safely.
+
+### 🔌 OS Concepts & IPC
+* **Pipe Mechanics:** Implemented bidirectional IPC using dual pipes; utilized the **blocking** nature of `read()` as a natural synchronization primitive.
+* **Resource Discipline:** Managed File Descriptors (FD) by proactively closing unused pipe ends to avoid leaks and potential deadlocks.
+* **Syscall Adaptation:** Transitioned to modern **MIT 6.1810 (2025 Fall)** standards, substituting legacy `sleep()` with the `pause()` system call.
