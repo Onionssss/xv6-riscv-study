@@ -147,6 +147,7 @@ UPROGS=\
 	$U/_dorphan\
 	$U/_sleep\
 	$U/_pingpong\
+	$U/_memdump\
 	$U/_hello
 
 fs.img: mkfs/mkfs README $(UPROGS)
