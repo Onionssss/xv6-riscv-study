@@ -27,7 +27,7 @@ void memdump(char *fmt, char *data){
             break;
 
         case 'p':
-            printf("%lx\n", *(uint64 *)p); // this will print 0x value
+            printf("%x\n", *(int *)p);
             p += 8; // print the next 8 bytes of the data as a 64-bit integer, in hex.
             break;
 
@@ -68,22 +68,18 @@ void memdump(char *fmt, char *data){
 int main(int argc, char *argv[]) {
     if (argc == 1) {
         // Example 1: test two 4-byte integers
-        printf("Example 1:\n");
         int e1[] = {61810, 2025};
         memdump("ii", (char *)e1);
 
         // Example 2: test 's' (pointer's pointer)
-        printf("Example 2:\n");
         char *e2 = "a string";
         memdump("s", (char *)&e2);
 
         // Example 3: test another 's'
-        printf("Example 3:\n");
         char *e3 = "another";
         memdump("s", (char *)&e3);
 
         // Example 4: test mix type (大魔王)
-        printf("Example 4:\n");
         struct {
             uint64 p;
             int i;
@@ -94,10 +90,18 @@ int main(int argc, char *argv[]) {
         memdump("pihcS", (char *)&e4);
 
         // Example 5: test 'S' then consecutive 'c'
-        printf("Example 5:\n");
         char e5[] = "hello\0world";
         memdump("Sccccc", e5);
 
+    }
+    else {
+        char buf[512];
+        // Read data from standard input (stdin, fd 0)
+        int n = read(0, buf, sizeof(buf));
+        if (n > 0) {
+            // argv[1] is the string format，e.g., "ii" or "S"
+            memdump(argv[1], buf);
+        }
     }
     exit(0);
 }
