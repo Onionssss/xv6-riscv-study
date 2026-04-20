@@ -19,12 +19,10 @@ It captures my implementation of various OS components and my evolving understan
 | :--- | :---: | :---: | :--- |
 | `sleep` | 6.1810 / 6.S081 | [x] | System Call: `pause()` (2025) / `sleep()` |
 | `pingpong` | 6.S081 (Classic) | [x] | Pipe IPC, `fork()`, `read()`, `write()` |
-| `primes` | 6.S081 (Classic) | [ ] | Concurrent Pipes, Recursive `fork()` |
-| `sixfive` | 6.1810 (2025) | [ ] | File I/O, String Parsing |
+| `sixfive` | 6.1810 (2025) | [x] | File I/O, String Parsing |
 | `memdump` | 6.1810 (2025) | [x] | Memory Layout, C Pointers Alignment |
-| `find` | 6.S081 (Classic) | [ ] | Directory Traversal, `fstat()` |
-| `find -exec` | 6.1810 (2025) | [ ] | Process Control: `fork()`, `exec()`, `wait()` |
-| `xargs` | 6.S081 (Classic) | [ ] | Argument Parsing, `exec()` |
+| `find` | 6.1810 (2025) | [ ] | File System Traversal：`fstat()`, `dirent`, Recursive Path Processing |
+| `find -exec` | 6.1810 (2025) | [ ] | Process Control：`fork()`, `exec()`, `wait()`, `MAXARG` Processing Parameters |
 
 #### **Future Labs**
 - [ ] **Lab: System calls**
