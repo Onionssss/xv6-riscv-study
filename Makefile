@@ -148,10 +148,11 @@ UPROGS=\
 	$U/_sleep\
 	$U/_pingpong\
 	$U/_memdump\
+	$U/_sixfive\
 	$U/_hello
 
-fs.img: mkfs/mkfs README $(UPROGS)
-	mkfs/mkfs fs.img README $(UPROGS)
+fs.img: mkfs/mkfs README sixfive.txt $(UPROGS)
+	mkfs/mkfs fs.img README sixfive.txt $(UPROGS)
 
 -include kernel/*.d user/*.d
 
