@@ -149,10 +149,12 @@ UPROGS=\
 	$U/_pingpong\
 	$U/_memdump\
 	$U/_sixfive\
+	$U/_find\
+	$U/_myecho\
 	$U/_hello
 
-fs.img: mkfs/mkfs README sixfive.txt $(UPROGS)
-	mkfs/mkfs fs.img README sixfive.txt $(UPROGS)
+fs.img: mkfs/mkfs README sixfive.txt $(UPROGS) user/findtest.sh
+	mkfs/mkfs fs.img README sixfive.txt $(UPROGS) user/findtest.sh
 
 -include kernel/*.d user/*.d
 
