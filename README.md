@@ -21,8 +21,8 @@ It captures my implementation of various OS components and my evolving understan
 | `pingpong` | 6.S081 (Classic) | [x] | Pipe IPC, `fork()`, `read()`, `write()` |
 | `sixfive` | 6.1810 (2025) | [x] | File I/O, String Parsing |
 | `memdump` | 6.1810 (2025) | [x] | Memory Layout, C Pointers Alignment |
-| `find` | 6.1810 (2025) | [ ] | File System Traversal：`fstat()`, `dirent`, Recursive Path Processing |
-| `find -exec` | 6.1810 (2025) | [ ] | Process Control：`fork()`, `exec()`, `wait()`, `MAXARG` Processing Parameters |
+| `find` | 6.1810 (2025) | [x] | File System Traversal：`fstat()`, `dirent`, Recursive Path Processing |
+| `find -exec` | 6.1810 (2025) | [x] | Process Control：`fork()`, `exec()`, `wait()`, `MAXARG` Processing Parameters |
 
 #### **Future Labs**
 - [ ] **Lab: System calls**
