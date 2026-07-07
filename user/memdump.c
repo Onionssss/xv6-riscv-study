@@ -22,47 +22,51 @@ void memdump(char *fmt, char *data){
         case 'i':
         // 1. (int *)p: regard pointer as an integer pointer
         // 2. *(int *)p: dereference that integer pointer
+        // print the next 4 bytes of the data as a 32-bit integer, in decimal.
             printf("%d\n", *(int *)p);
-            p += 4; // print the next 4 bytes of the data as a 32-bit integer, in decimal.
+            p += 4; // done, move 4 bytes
             break;
 
-        case 'p':
-            printf("%x\n", *(int *)p);
-            p += 8; // print the next 8 bytes of the data as a 64-bit integer, in hex.
+        case 'p': // print the next 8 bytes of the data as a 64-bit integer, in hex.
+            printf("%lx\n", *(uint64 *)p);
+            p += 8; 
             break;
 
-        case 'h': // use short
-            printf("%d\n", *(short *)p);
-            p += 2; // print the next 2 bytes of the data as a 16-bit integer, in decimal.
+        case 'h': // print the next 2 bytes of the data as a 16-bit integer, in decimal.
+            printf("%d\n", *(short *)p); // use short
+            p += 2; 
             break;
 
-        case 'c': // means a character
+        case 'c': // character
             printf("%c\n", *p);
-            p += 1; // this is the spirit, we have to move one pointer when processing one byte
+            p++;
             break;
-        
-        // the next 8 bytes of the data contain a 64-bit pointer to a C string; print the string.
-        case 's': // pointer of pointer // indirection
-            {
+
+        // the next 8 bytes of the data contain a 64-bit pointer to a C string;
+        // print the string.
+        case 's': // pointer of pointer (indirection)
+            { // to declare new variable inside switch case, use curly bracket
                 char *pp;
-        // use uint64 to move 8 bytes at a time // then change the format to char *
+        /* use uint64 to move 8 bytes at a time, then change the format to (char *) */
                 pp = (char *)(*(uint64 *)p);
-                printf("%s\n", pp);
+                printf("%s\n", pp); // use %s to print the string
                 p += 8;
                 break;
             }
-            
-        case 'S': // the rest of the data contains the bytes of a null-terminated C string; print the string.
+        
+        // the rest of the data contains the bytes of a null-terminated C string; 
+        // print the string.
+        case 'S':
         /* use the strlen function */
             printf("%s\n", (char *)p); // all the characters and \0
             p += strlen(p) + 1;
             break;
-
+        
         default:
             break;
         }
     }
-    printf("\n");
+
 }
 
 int main(int argc, char *argv[]) {
@@ -99,7 +103,7 @@ int main(int argc, char *argv[]) {
         // Read data from standard input (stdin, fd 0)
         int n = read(0, buf, sizeof(buf));
         if (n > 0) {
-            // argv[1] is the string format，e.g., "ii" or "S"
+            // argv[1] is the string format such as "ii" or "S"
             memdump(argv[1], buf);
         }
     }
